@@ -1,8 +1,8 @@
 package me.java.project.group;
 
 public class Group {
-    GroupType groupType;
-    Parameter parameter;
+    private GroupType groupType;
+    private Parameter parameter;
 
     public Group() {}
 
@@ -25,6 +25,15 @@ public class Group {
 
     public void setParameter(Parameter parameter) {
         this.parameter = parameter;
+    }
+
+    //내가 추가한 것
+    public void setTimeParameter(int minimumTime){
+        this.parameter.setMinimumTime(minimumTime);
+    }
+
+    public void setPayParameter(int minimumPay){
+        this.parameter.setMinimumPay(minimumPay);
     }
 
     @Override

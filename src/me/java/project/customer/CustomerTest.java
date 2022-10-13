@@ -1,14 +1,18 @@
 package me.java.project.customer;
 
+import me.java.project.group.GroupType;
+import me.java.project.group.Groups;
+import me.java.project.group.Parameter;
 import me.java.project.menu.OrderType;
+import me.java.project.menu.SummaryType;
 
 import java.util.Arrays;
 
 public class CustomerTest {
     public static void main(String[] args) {
-        Customers cs = new Customers(5);
+        Customers cs = new Customers(10);
 
-        Customer c = new Customer("jisuuu","qwert",10,10000);
+        Customer c = new Customer("jisuuu","qwert",5,10000);
         Customer c2 = new Customer("seunghyeon","asdfg",20,20000);
         Customer c3 = new Customer("backjun","zxcvb",30,30000);
         Customer c4 = new Customer("programus","zxcvb",25,30000);
@@ -22,34 +26,33 @@ public class CustomerTest {
         cs.customerAdd(c4);
         cs.customerAdd(c5);
 
-        System.out.println(cs);
+//        System.out.println("showC");
+//        cs.showCustomers();
+//
+//        ClassifiedCustomers2 cf = new ClassifiedCustomers2();
+//        cf.groupByClass(cs);
+//
+//        for(Customers css : cf.classifiedArr){
+//            System.out.println(css);
+//        }
 
-        String name=null;
-        int time=0;
-        cs.customerUpdate(2,  name,"asdfg",time,30000);
+        Groups gs = new Groups();
+        int time = 10;
+        int pay = 10000;
+        gs.setParameter(GroupType.GENERAL, new Parameter(time, pay));
+//        gs.setParameter(GroupType.VIP, new Parameter(time+10, pay+10000));
+        gs.setParameter(GroupType.VVIP, new Parameter(time+20, pay+20000));
 
-       // Customer deleted = cs.customerDelete(1);
 
+        System.out.println("여기");
+        ClassifiedCustomers[] classifiedCustomers = cs.groupByClass(gs);
 
-        ClassifiedCustomers cf = new ClassifiedCustomers();
-        cf.groupByClass(cs);
+      cs.showSummaryCustomers(classifiedCustomers);
 
-        for(Customers css : cf.classifiedArr){
-            System.out.println(css);
-        }
+      cs.sortedByOrder(classifiedCustomers, OrderType.DESCENDING, SummaryType.NAME );
 
-        cf.sortedByName(OrderType.ASCENDING);
-        cf.sortedByName(OrderType.DESCENDING);
-        cf.sortedByTime(OrderType.ASCENDING);
-        cf.sortedByTime(OrderType.DESCENDING);
-        cf.sortedByPay(OrderType.ASCENDING);
-        cf.sortedByPay(OrderType.DESCENDING);
-
-        //정렬 후
-        System.out.println("정렬 후");
-        for(Customers css : cf.classifiedArr){
-            System.out.println(css);
-        }
+        System.out.println("변경");
+        cs.showSummaryCustomers(classifiedCustomers);
 
     }
 }

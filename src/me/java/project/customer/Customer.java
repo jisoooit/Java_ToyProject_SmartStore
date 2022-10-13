@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 public class Customer implements Comparable<Customer> {
-    protected int serialNum;
+    protected String serialNum;
     protected String userName;
     protected String userId;
     protected  int spentTime;
@@ -12,8 +12,9 @@ public class Customer implements Comparable<Customer> {
     private static  int total=0;
 
     public Customer(){
-        this.serialNum=total+1;
         total++;
+        this.serialNum=String.format("%05d",total);
+
     }
 
     public Customer(String userName, String userId, int spentTime, int totalPay) {
@@ -21,11 +22,13 @@ public class Customer implements Comparable<Customer> {
         this.userId = userId;
         this.spentTime = spentTime;
         this.totalPay = totalPay;
-        this.serialNum = total + 1;
         total++;
+//        this.serialNum = total;
+        this.serialNum=String.format("%05d",total);
+
     }
 
-    public int getSerialNum() {
+    public String getSerialNum() {
         return serialNum;
     }
 
@@ -92,6 +95,13 @@ public class Customer implements Comparable<Customer> {
     }
 }
 
+class ComparatorByNameA implements Comparator<Customer> {
+
+    @Override
+    public int compare(Customer o1, Customer  o2) {
+        return o1.getUserName().compareTo(o2.getUserName()) ;
+    }
+}
 
 class ComparatorByNameD implements Comparator<Customer> {
 
