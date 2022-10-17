@@ -1,5 +1,6 @@
 package me.java.project.menu;
 
+import me.java.project.customer.ClassfiedCustomersGroup;
 import me.java.project.customer.ClassifiedCustomers;
 import me.java.project.customer.ClassifiedCustomers2;
 import me.java.project.customer.Customers;
@@ -12,7 +13,9 @@ public class SummaryMenu {
     public void runSummaryMenu(Customers cs, Groups gs){
 
         Scanner scan = new Scanner(System.in);
-        ClassifiedCustomers[] classifiedCustomers = cs.groupByClass(gs);
+        ClassfiedCustomersGroup ccg = new ClassfiedCustomersGroup();
+        ccg.groupByClass(gs,cs);
+//        ClassifiedCustomers[] classifiedCustomers = cs.groupByClass(gs);
 
         while (true) {
             System.out.println("===============================");
@@ -32,7 +35,8 @@ public class SummaryMenu {
             if (summarySelect == 5) {
                 break;
             } else if (summarySelect == 1) {
-                cs.showSummaryCustomers(classifiedCustomers);
+//                cs.showSummaryCustomers(classifiedCustomers);
+                ccg.showSummaryCustomers();
 
             } else if (summarySelect ==2 ){
                 System.out.println("**Press 'end', if you want to exit! **");
@@ -47,8 +51,8 @@ public class SummaryMenu {
                 }  else{
                     continue;
                 }
-
-                cs.sortedByOrder(classifiedCustomers,ot,SummaryType.NAME);
+                ccg.sortedByOrder(ot, SummaryType.NAME);
+                //cs.sortedByOrder(classifiedCustomers,ot,SummaryType.NAME);
 
             } else if (summarySelect == 3){
                 System.out.println("**Press 'end', if you want to exit! **");
@@ -62,8 +66,8 @@ public class SummaryMenu {
                 }  else{
                     continue;
                 }
-
-                cs.sortedByOrder(classifiedCustomers,ot,SummaryType.TIME);
+                ccg.sortedByOrder(ot, SummaryType.TIME);
+                //cs.sortedByOrder(classifiedCustomers,ot,SummaryType.TIME);
 
             } else if (summarySelect == 4){
                 System.out.println("**Press 'end', if you want to exit! **");
@@ -77,8 +81,8 @@ public class SummaryMenu {
                 }  else{
                     continue;
                 }
-
-                cs.sortedByOrder(classifiedCustomers,ot,SummaryType.PAY);
+                ccg.sortedByOrder(ot,SummaryType.PAY);
+                //cs.sortedByOrder(classifiedCustomers,ot,SummaryType.PAY);
             }
         }
     }

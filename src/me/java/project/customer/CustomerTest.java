@@ -45,14 +45,19 @@ public class CustomerTest {
 
 
         System.out.println("여기");
-        ClassifiedCustomers[] classifiedCustomers = cs.groupByClass(gs);
+        //ClassifiedCustomers[] classifiedCustomers = cs.groupByClass(gs);
+        ClassfiedCustomersGroup ccg = new ClassfiedCustomersGroup();
+        ccg.groupByClass(gs, cs);
 
-      cs.showSummaryCustomers(classifiedCustomers);
+        ccg.showSummaryCustomers();
+//      cs.showSummaryCustomers(classifiedCustomers);
 
-      cs.sortedByOrder(classifiedCustomers, OrderType.DESCENDING, SummaryType.NAME );
+        ccg.sortedByOrder(OrderType.DESCENDING, SummaryType.TIME);
+//      cs.sortedByOrder(classifiedCustomers, OrderType.DESCENDING, SummaryType.NAME );
 
         System.out.println("변경");
-        cs.showSummaryCustomers(classifiedCustomers);
+        ccg.showSummaryCustomers();
+//        cs.showSummaryCustomers(classifiedCustomers);
 
     }
 }
