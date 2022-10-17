@@ -4,10 +4,25 @@ import me.java.project.customer.Customer;
 import me.java.project.customer.Customers;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CustomerMenu {
+    private static CustomerMenu groupMenu;
+
+    public static CustomerMenu getInstance(){
+        if ( groupMenu == null ){
+            groupMenu = new CustomerMenu();
+        }
+        return groupMenu;
+    }
 
     public void runCustomerMenu(Customers cs){
+
+        Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}$");
+        Pattern patternId = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]{5,12}$");
+
+        Matcher matcher;
 
         Scanner scan = new Scanner(System.in);
         //Customers cs = new Customers(10);
@@ -65,20 +80,35 @@ public class CustomerMenu {
                                 cs.customerAdd(newCustomer);
                                 break;
                             } else if (InfoSelect == 1) {
-                                System.out.print("Input Customer's Name: ");
-                                userName= scan.next();
+
+                                do {
+                                    System.out.print("Input Customer's Name: ");
+                                    userName= scan.next();
+                                    matcher = pattern.matcher(userName);
+                                } while (! matcher.find()) ;
+
 
                             } else if (InfoSelect == 2) {
-                                System.out.print("Input Customer's UserID: ");
-                                userId = scan.next();
+
+                                do {
+                                    System.out.print("Input Customer's UserID: ");
+                                    userId = scan.next();
+                                    matcher = patternId.matcher(userId);
+                                } while (! matcher.find()) ;
 
                             } else if (InfoSelect == 3) {
-                                System.out.print("Input Customer's Spent Time at Your Store: ");
-                                spentTime = scan.nextInt();
+
+                                do {
+                                    System.out.print("Input Customer's Spent Time at Your Store: ");
+                                    spentTime = scan.nextInt();
+                                } while (spentTime % 10 !=0);
 
                             } else if (InfoSelect == 4) {
-                                System.out.print("Input Customer's Total Payment at Your Store");
-                                totalPay = scan.nextInt();
+
+                                do {
+                                    System.out.print("Input Customer's Total Payment at Your Store");
+                                    totalPay = scan.nextInt();
+                                }while (totalPay % 100000 !=0);
 
                             }
 

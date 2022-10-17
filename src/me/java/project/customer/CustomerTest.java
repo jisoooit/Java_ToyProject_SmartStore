@@ -12,6 +12,8 @@ public class CustomerTest {
     public static void main(String[] args) {
         Customers cs = new Customers(10);
 
+
+
         Customer c = new Customer("jisuuu","qwert",5,10000);
         Customer c2 = new Customer("seunghyeon","asdfg",20,20000);
         Customer c3 = new Customer("backjun","zxcvb",30,30000);

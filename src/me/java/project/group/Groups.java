@@ -9,6 +9,15 @@ public class Groups {
     Group[] groups;
     int size=0;
 
+    private static Groups allGroups;
+
+    public static Groups getInstance(){
+        if ( allGroups == null ){
+            allGroups = new Groups();
+        }
+        return allGroups;
+    }
+
     public Groups(){
         groups = new Group[DEFAULT];
     }

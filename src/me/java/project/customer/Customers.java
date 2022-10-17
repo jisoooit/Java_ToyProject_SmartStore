@@ -16,6 +16,14 @@ public class Customers {
     protected int size = 0;  // total customers (saved)
     protected int capacity = 0;  // total size
 
+    private static Customers allCustomers;
+
+    public static Customers getInstance(){
+        if (allCustomers == null) {
+            allCustomers = new Customers();
+        }
+        return allCustomers;
+    }
 
     public Customers() {
         customers = new Customer[MAX_CUSTOMER];
