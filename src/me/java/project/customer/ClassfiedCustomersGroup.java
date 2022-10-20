@@ -24,7 +24,7 @@ public class ClassfiedCustomersGroup {
 
         public ClassfiedCustomersGroup(){
                 for(int i = 0; i < GroupType.values().length; i++){
-                        classifiedCustomers[i] = new ClassifiedCustomers();
+                        classifiedCustomers[i] = new ClassifiedCustomers(groupTypes[i]);
                 }
         }
 
@@ -103,7 +103,6 @@ public class ClassfiedCustomersGroup {
                                 System.out.println(c);
                         }
                         System.out.println();
-                        //System.out.println(Arrays.toString(Arrays.copyOf(classifiedCustomers[i].getCustomers(), classifiedCustomers[i].getSize())));
                 }
         }
 }

@@ -36,76 +36,39 @@ public class SummaryMenu extends Menu{
         classfiedCustomersGroup.showSummaryCustomers();
     }
 
-    public void sortedByName() {
-        classfiedCustomersGroup.groupByClass(allGroups,allCustomers);
-        while(true){
+    public void sortedBySomething(SummaryType st) {
+        classfiedCustomersGroup.groupByClass(allGroups, allCustomers);
+        while (true) {
             System.out.println("**Press 'end', if you want to exit! **");
             System.out.print("Which order (ASCENDING, DESCENDING)? ");
             String orderSelect = scanner.next();
             OrderType ot;
             if (orderSelect.equals("end")) {
                 break;
-            } else if ( orderSelect.equals("ASCENDING")){
-                ot=OrderType.ASCENDING;
-                classfiedCustomersGroup.sortedByOrder(ot, SummaryType.NAME);
+            } else if (orderSelect.equals("ASCENDING")) {
+                ot = OrderType.ASCENDING;
+                classfiedCustomersGroup.sortedByOrder(ot, st);
                 break;
-            } else if(orderSelect.equals("DESCENDING")){
-                ot=OrderType.DESCENDING;
-                classfiedCustomersGroup.sortedByOrder(ot, SummaryType.NAME);
+            } else if (orderSelect.equals("DESCENDING")) {
+                ot = OrderType.DESCENDING;
+                classfiedCustomersGroup.sortedByOrder(ot, st);
                 break;
-            }  else{
+            } else {
                 continue;
             }
         }
+    }
 
-
+    public void sortedByName() {
+       sortedBySomething(SummaryType.NAME);
     }
 
     public void sortedBySpentTime() {
-        classfiedCustomersGroup.groupByClass(allGroups,allCustomers);
-        while(true){
-            System.out.println("**Press 'end', if you want to exit! **");
-            System.out.print("Which order (ASCENDING, DESCENDING)? ");
-            String orderSelect = scanner.next();
-            OrderType ot;
-            if (orderSelect.equals("end")) {
-                break;
-            } else if ( orderSelect.equals("ASCENDING")){
-                ot=OrderType.ASCENDING;
-                classfiedCustomersGroup.sortedByOrder(ot, SummaryType.TIME);
-                break;
-            } else if(orderSelect.equals("DESCENDING")){
-                ot=OrderType.DESCENDING;
-                classfiedCustomersGroup.sortedByOrder(ot, SummaryType.TIME);
-                break;
-            }  else{
-                continue;
-            }
-        }
+       sortedBySomething(SummaryType.TIME);
     }
 
     public void sortedByTotalPayment() {
-        classfiedCustomersGroup.groupByClass(allGroups,allCustomers);
-        while(true){
-            System.out.println("**Press 'end', if you want to exit! **");
-            System.out.print("Which order (ASCENDING, DESCENDING)? ");
-            String orderSelect = scanner.next();
-            OrderType ot;
-
-            if (orderSelect.equals("end")) {
-                break;
-            } else if ( orderSelect.equals("ASCENDING")){
-                ot=OrderType.ASCENDING;
-                classfiedCustomersGroup.sortedByOrder(ot, SummaryType.PAY);
-                break;
-            } else if(orderSelect.equals("DESCENDING")){
-                ot=OrderType.DESCENDING;
-                classfiedCustomersGroup.sortedByOrder(ot, SummaryType.PAY);
-                break;
-            }  else{
-                continue;
-            }
-        }
+        sortedBySomething(SummaryType.PAY);
     }
 
     @Override

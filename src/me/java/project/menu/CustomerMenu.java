@@ -89,10 +89,10 @@ public class CustomerMenu extends Menu{
 
                             } else if (InfoSelect == 3) {
                                 System.out.print("Input Customer's Spent Time at Your Store: ");
-                                spentTime = scanner.nextInt();
+                                spentTime =Integer.parseInt(scanner.next());
                             } else if (InfoSelect == 4) {
                                 System.out.print("Input Customer's Total Payment at Your Store");
-                                totalPay = scanner.nextInt();
+                                totalPay = Integer.parseInt(scanner.next());
                             }
                     }
                         catch (NumberFormatException e ){
@@ -164,20 +164,26 @@ public class CustomerMenu extends Menu{
                     allCustomers.customerUpdate(updateNo, updateUserName, updateUserId, updateSpentTime, updateTotalPay);
                     break;
                 } else if (InfoSelect == 1) {
-                    System.out.print("Input Customer's Name: ");
-                    updateUserName = scanner.next();
+                    do {
+                        System.out.print("Input Customer's Name: ");
+                        updateUserName = scanner.next();
+                        matcher = pattern.matcher(updateUserName);
+                    } while (!matcher.find());
 
                 } else if (InfoSelect == 2) {
-                    System.out.print("Input Customer's UserID: ");
-                    updateUserId = scanner.next();
+                    do {
+                        System.out.print("Input Customer's UserID: ");
+                        updateUserId = scanner.next();
+                        matcher = patternId.matcher(updateUserId);
+                    } while (!matcher.find());
 
                 } else if (InfoSelect == 3) {
                     System.out.print("Input Customer's Spent Time at Your Store: ");
-                    updateSpentTime = scanner.nextInt();
+                    updateSpentTime = Integer.parseInt(scanner.next());
 
                 } else if (InfoSelect == 4) {
                     System.out.print("Input Customer's Total Payment at Your Store:  ");
-                    updateTotalPay = scanner.nextInt();
+                    updateTotalPay = Integer.parseInt(scanner.next());
 
                 }
             } catch (NumberFormatException e){

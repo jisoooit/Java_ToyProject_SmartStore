@@ -84,17 +84,4 @@ public class Groups {
         }
     }
 
-    public Group getGeneral(){
-        return groups[0];
-    }
-
-    public Group getVip(){
-        return groups[1];
-    }
-
-    public Group getVVIP(){
-        return groups[2];
-    }
-
-
 }

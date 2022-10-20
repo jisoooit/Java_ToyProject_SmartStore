@@ -1,5 +1,7 @@
 package me.java.project.menu;
 
+import me.java.project.exception.ErrorMessage;
+import me.java.project.exception.InputRangeException;
 import me.java.project.group.GroupType;
 import me.java.project.group.Groups;
 
@@ -40,52 +42,61 @@ public class GroupMenu extends Menu {
             int minimumTotalPay;
 
 
-            if ( groupSelect.equals("GENERAL")){
-                gt= GroupType.GENERAL;
-            } else if(groupSelect.equals("VIP")){
-                gt=GroupType.VIP;
-            } else if(groupSelect.equals("VVIP")){
-                gt=GroupType.VVIP;
-            } else{
+            if (groupSelect.equals("GENERAL")) {
+                gt = GroupType.GENERAL;
+            } else if (groupSelect.equals("VIP")) {
+                gt = GroupType.VIP;
+            } else if (groupSelect.equals("VVIP")) {
+                gt = GroupType.VVIP;
+            } else {
                 continue;
             }
 
 
             while (true) {
-                System.out.println("===============================");
-                System.out.println("1. Minimum Spent Time");
-                System.out.println("2. Minimum Total Pay");
-                System.out.println("3. Back");
-                System.out.println("===============================");
+                try {
+                    System.out.println("===============================");
+                    System.out.println("1. Minimum Spent Time");
+                    System.out.println("2. Minimum Total Pay");
+                    System.out.println("3. Back");
+                    System.out.println("===============================");
 
-                System.out.print("Choose One: ");
-                int setSelect = scanner.nextInt();
+                    System.out.print("Choose One: ");
+                    int setSelect = Integer.parseInt(scanner.next());
 
-                if (setSelect == 3) {
-                    break;
-                } else if (setSelect == 1) {
-                    do {
-                        System.out.print("Input Minimum Spent Time: ");
-                        minimumSpentTime = scanner.nextInt();
-                    }while (minimumSpentTime % 10 !=0);
-                    allGroups.setTimeParameter(gt,minimumSpentTime);
+                    if (setSelect < 1 || setSelect > 3) {
+                        throw new InputRangeException();
+                    }
 
-                } else if (setSelect == 2) {
-                    do {
-                        System.out.print("Input Minimum Total Pay");
-                        minimumTotalPay = scanner.nextInt();
-                    }while(minimumTotalPay % 100000 !=0);
-                    allGroups.setPayParameter(gt,minimumTotalPay);
+                    if (setSelect == 3) {
+                        break;
+                    } else if (setSelect == 1) {
+                        do {
+                            System.out.print("Input Minimum Spent Time: ");
+                            minimumSpentTime =  Integer.parseInt(scanner.next());
+                        } while (minimumSpentTime % 10 != 0);
+                        allGroups.setTimeParameter(gt, minimumSpentTime);
+
+                    } else if (setSelect == 2) {
+                        do {
+                            System.out.print("Input Minimum Total Pay");
+                            minimumTotalPay =  Integer.parseInt(scanner.next());
+                        } while (minimumTotalPay % 100000 != 0);
+                        allGroups.setPayParameter(gt, minimumTotalPay);
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+                } catch (InputRangeException e) {
+                    System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
                 }
             }
         }
-
     }
     public void viewParam() {
         allGroups.showAllParameter();
     }
     public void updateParam() {
-
 
     }
 
