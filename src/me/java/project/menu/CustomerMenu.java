@@ -2,66 +2,55 @@ package me.java.project.menu;
 
 import me.java.project.customer.Customer;
 import me.java.project.customer.Customers;
+import me.java.project.exception.ErrorMessage;
+import me.java.project.exception.InputRangeException;
 
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CustomerMenu {
-    private static CustomerMenu groupMenu;
+public class CustomerMenu extends Menu{
+    private static CustomerMenu customerMenu;
+    private String[] menus = {"Set Customer Data", "View Customer Data"," Update Customer Data", "Delete Customer Data","Back"};
+    private String [] methods = {"setCusData", "viewCusData","updateCusData","deleteCusData"};
+
+    private Customers allCustomers = Customers.getInstance();
+    Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}$");
+    Pattern patternId = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]{5,12}$");
+
+    Matcher matcher;
+
+    private CustomerMenu() {};
 
     public static CustomerMenu getInstance(){
-        if ( groupMenu == null ){
-            groupMenu = new CustomerMenu();
+        if ( customerMenu == null ){
+            customerMenu = new CustomerMenu();
         }
-        return groupMenu;
+        return customerMenu;
     }
 
-    public void runCustomerMenu(Customers cs){
 
-        Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}$");
-        Pattern patternId = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]{5,12}$");
-
-        Matcher matcher;
-
-        Scanner scan = new Scanner(System.in);
-        //Customers cs = new Customers(10);
+    public void setCusData() {
 
         while (true) {
-            System.out.println("===============================");
-            System.out.println("1. Add Customer Data");
-            System.out.println("2. View Customer Data");
-            System.out.println("3. Update Customer Data");
-            System.out.println("4. Delete Customer Data");
-            System.out.println("5. Back");
-            System.out.println("===============================");
+            try  {
+                System.out.println("** Press -1, if you want to exit! **");
+                System.out.print("How many customers to input? ");
 
-            System.out.print("Choose One: ");
-            int dataSelect = scan.nextInt();
+                int addCnt = Integer.parseInt(scanner.next());
 
-            if (dataSelect == 5) {
-                break;
-            } else if (dataSelect == 1) {
+                if (addCnt == -1) {
+                    break;
+                }
 
-                while (true) {
-                    System.out.println("** Press -1, if you want to exit! **");
-                    System.out.print("How many customers to input? ");
+                for (int i = 0; i < addCnt; i++) {
+                    String userName = null;
+                    String userId = null;
+                    int spentTime = 0;
+                    int totalPay = 0;
 
-                    int addCnt = scan.nextInt();
-
-                    if (addCnt == -1) {
-                        break;
-                    }
-
-                    for (int i = 0; i < addCnt; i++) {
-                        String userName=null;
-                        String userId=null;
-                        int spentTime=0;
-                        int totalPay=0;
-
-                        System.out.println("=====Customer Info" + (i+1)+ "=====");
-                        while (true) {
-
+                    System.out.println("=====Customer Info" + (i + 1) + "=====");
+                    while (true) {
+                        try {
                             System.out.println("===============================");
                             System.out.println("1. Customer Name");
                             System.out.println("2. Customer ID");
@@ -72,109 +61,167 @@ public class CustomerMenu {
 
 
                             System.out.print("Choose One: ");
-                            int InfoSelect = scan.nextInt();
-
+                            int InfoSelect = Integer.parseInt(scanner.next());
+                            if (InfoSelect < 1 || InfoSelect > 5) {
+                                throw new InputRangeException();
+                            }
 
                             if (InfoSelect == 5) {
-                                Customer newCustomer = new Customer(userName,userId,spentTime,totalPay);
-                                cs.customerAdd(newCustomer);
+                                Customer newCustomer = new Customer(userName, userId, spentTime, totalPay);
+                                allCustomers.customerAdd(newCustomer);
                                 break;
                             } else if (InfoSelect == 1) {
 
                                 do {
                                     System.out.print("Input Customer's Name: ");
-                                    userName= scan.next();
+                                    userName = scanner.next();
                                     matcher = pattern.matcher(userName);
-                                } while (! matcher.find()) ;
+                                } while (!matcher.find());
 
 
                             } else if (InfoSelect == 2) {
 
                                 do {
                                     System.out.print("Input Customer's UserID: ");
-                                    userId = scan.next();
+                                    userId = scanner.next();
                                     matcher = patternId.matcher(userId);
-                                } while (! matcher.find()) ;
+                                } while (!matcher.find());
 
                             } else if (InfoSelect == 3) {
-
-                                do {
-                                    System.out.print("Input Customer's Spent Time at Your Store: ");
-                                    spentTime = scan.nextInt();
-                                } while (spentTime % 10 !=0);
-
+                                System.out.print("Input Customer's Spent Time at Your Store: ");
+                                spentTime = scanner.nextInt();
                             } else if (InfoSelect == 4) {
-
-                                do {
-                                    System.out.print("Input Customer's Total Payment at Your Store");
-                                    totalPay = scan.nextInt();
-                                }while (totalPay % 100000 !=0);
-
+                                System.out.print("Input Customer's Total Payment at Your Store");
+                                totalPay = scanner.nextInt();
                             }
-
-
+                    }
+                        catch (NumberFormatException e ){
+                            System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+                        }  catch (InputRangeException e){
+                            System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
                         }
-                    }
                 }
-            } else if (dataSelect == 2) {
-                System.out.println("=====Customer Info=====");
-
-                cs.showCustomers();
-
-            } else if (dataSelect == 3) {
-                int end = cs.getSize();
-                cs.showCustomers();
-                System.out.println("Which Customer ("+1+"~"+end+")? ");
-
-                int updateNo = scan.nextInt();
-
-                String updateUserName=null;
-                String updateUserId=null;
-                int updateSpentTime=0;
-                int updateTotalPay=0;
-                while (true) {
-
-                    System.out.println("===============================");
-                    System.out.println("1. Customer Name");
-                    System.out.println("2. Customer ID");
-                    System.out.println("3. Customer Spent Time");
-                    System.out.println("4. Customer Total Pay");
-                    System.out.println("5. Back");
-                    System.out.println("===============================");
-
-
-                    System.out.print("Choose One: ");
-                    int InfoSelect = scan.nextInt();
-
-
-                    if (InfoSelect == 5) {
-                        cs.customerUpdate(updateNo,updateUserName,updateUserId,updateSpentTime,updateTotalPay);
-                        break;
-                    } else if (InfoSelect == 1) {
-                        System.out.print("Input Customer's Name: ");
-                        updateUserName= scan.next();
-
-                    } else if (InfoSelect == 2) {
-                        System.out.print("Input Customer's UserID: ");
-                        updateUserId = scan.next();
-
-                    } else if (InfoSelect == 3) {
-                        System.out.print("Input Customer's Spent Time at Your Store: ");
-                        updateSpentTime = scan.nextInt();
-
-                    } else if (InfoSelect == 4) {
-                        System.out.print("Input Customer's Total Payment at Your Store:  ");
-                        updateTotalPay = scan.nextInt();
-
-                    }
                 }
-            } else if (dataSelect == 4) {
-                int end = cs.getSize();
-                cs.showCustomers();
-                System.out.print("Which Customer ("+1+"~"+end+")? ");
-                int deleteNo = scan.nextInt();
-                cs.customerDelete(deleteNo);
+            }catch (NumberFormatException e ){
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
             }
         }
+    }
+    public void viewCusData() {
+        System.out.println("=====Customer Info=====");
+
+        allCustomers.showCustomers();
+    }
+    public void updateCusData() {
+        String updateUserName=null;
+        String updateUserId=null;
+        int updateSpentTime=0;
+        int updateTotalPay=0;
+        int updateNo;
+        allCustomers.showCustomers();
+
+       while (true){
+
+           try{
+               int end = allCustomers.getSize();
+               System.out.println("Which Customer ("+1+"~"+end+")? ");
+
+
+
+               updateNo =  Integer.parseInt(scanner.next());
+               if (updateNo <1 || updateNo > end) {
+                   throw new InputRangeException();
+               } else {
+                   break;
+               }
+
+           } catch (NumberFormatException e){
+               System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+           }
+           catch (InputRangeException e){
+               System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
+           }
+       }
+
+        while (true) {
+            try {
+                System.out.println("===============================");
+                System.out.println("1. Customer Name");
+                System.out.println("2. Customer ID");
+                System.out.println("3. Customer Spent Time");
+                System.out.println("4. Customer Total Pay");
+                System.out.println("5. Back");
+                System.out.println("===============================");
+
+
+                System.out.print("Choose One: ");
+                int InfoSelect =  Integer.parseInt(scanner.next());
+                if (InfoSelect < 1 || InfoSelect > 5) {
+                    throw new InputRangeException();
+                }
+
+                if (InfoSelect == 5) {
+                    allCustomers.customerUpdate(updateNo, updateUserName, updateUserId, updateSpentTime, updateTotalPay);
+                    break;
+                } else if (InfoSelect == 1) {
+                    System.out.print("Input Customer's Name: ");
+                    updateUserName = scanner.next();
+
+                } else if (InfoSelect == 2) {
+                    System.out.print("Input Customer's UserID: ");
+                    updateUserId = scanner.next();
+
+                } else if (InfoSelect == 3) {
+                    System.out.print("Input Customer's Spent Time at Your Store: ");
+                    updateSpentTime = scanner.nextInt();
+
+                } else if (InfoSelect == 4) {
+                    System.out.print("Input Customer's Total Payment at Your Store:  ");
+                    updateTotalPay = scanner.nextInt();
+
+                }
+            } catch (NumberFormatException e){
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+            }
+            catch (InputRangeException e){
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+
+    }
+
+    public void deleteCusData() {
+        allCustomers.showCustomers();
+        while(true){
+            try {
+                int end = allCustomers.getSize();
+                System.out.print("Which Customer ("+1+"~"+end+")? ");
+                int deleteNo =  Integer.parseInt(scanner.next());
+                if (deleteNo <1 || deleteNo > end) {
+                    throw new InputRangeException();
+                }
+                allCustomers.customerDelete(deleteNo);
+                break;
+            } catch (NumberFormatException e){
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+            } catch (InputRangeException e){
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+
+
+    }
+
+    @Override
+    public void manage() {
+        setInstance(customerMenu);
+        setMethods(methods);
+        super.manage();
+    }
+
+    @Override
+    public int dispMenu() {
+        setMenus(menus);
+        return super.dispMenu();
     }
 }

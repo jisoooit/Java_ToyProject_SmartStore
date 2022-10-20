@@ -3,106 +3,102 @@ package me.java.project.menu;
 import me.java.project.group.GroupType;
 import me.java.project.group.Groups;
 
-import java.util.Scanner;
 
-public class GroupMenu {
 
-    public void groupMenu(Groups gs) {
+public class GroupMenu extends Menu {
+    private static GroupMenu groupMenu;
+    private GroupType gt;
+    private Groups allGroups = Groups.getInstance();
 
-        Scanner scan = new Scanner(System.in);
+    private String[] menus
+            = { "Set Parameter", "View Parameter", "Update Parameter",  "Back"};
 
+    /* method reflect */
+    private String[] methods = { "setParam", "viewParam", "setParam" };
+
+    private GroupMenu() {}
+
+    public static GroupMenu getInstance() {
+        if (groupMenu == null) {
+            groupMenu = new GroupMenu();
+        }
+        return groupMenu;
+    }
+
+    public void setParam() {
+        System.out.println("setParam");
         while (true) {
-            System.out.println("===============================");
-            System.out.println("1. Set Parameter");
-            System.out.println("2. View Parameter");
-            System.out.println("3. Update Parameter");
-            System.out.println("4. Back");
-            System.out.println("===============================");
+            System.out.println("** Press 'end', if you want to exit! **");
+            System.out.println("Which group (GENERAL, VIP, VVIP)?");
 
-            System.out.print("Choose One: ");
-            int parameterSelect = scan.nextInt();
-            GroupType gt;
-
-
-            if (parameterSelect == 4) {
+            String groupSelect = scanner.next();
+            if (groupSelect.equals("end")) {
                 break;
-            } else if (parameterSelect == 1 || parameterSelect ==3) {
-                while (true) {
-                    System.out.println("** Press 'end', if you want to exit! **");
-                    System.out.println("Which group (GENERAL, VIP, VVIP)?");
+            }
 
-                    String groupSelect = scan.next();
-                    if (groupSelect.equals("end")) {
-                        break;
-                    }
-
-                    int minimumSpentTime;
-                    int minimumTotalPay;
+            int minimumSpentTime;
+            int minimumTotalPay;
 
 
-                    if ( groupSelect.equals("GENERAL")){
-                        gt=GroupType.GENERAL;
-                    } else if(groupSelect.equals("VIP")){
-                        gt=GroupType.VIP;
-                    } else if(groupSelect.equals("VVIP")){
-                        gt=GroupType.VVIP;
-                    } else{
-                        continue;
-                    }
+            if ( groupSelect.equals("GENERAL")){
+                gt= GroupType.GENERAL;
+            } else if(groupSelect.equals("VIP")){
+                gt=GroupType.VIP;
+            } else if(groupSelect.equals("VVIP")){
+                gt=GroupType.VVIP;
+            } else{
+                continue;
+            }
 
 
-                    while (true) {
-                        System.out.println("===============================");
-                        System.out.println("1. Minimum Spent Time");
-                        System.out.println("2. Minimum Total Pay");
-                        System.out.println("3. Back");
-                        System.out.println("===============================");
+            while (true) {
+                System.out.println("===============================");
+                System.out.println("1. Minimum Spent Time");
+                System.out.println("2. Minimum Total Pay");
+                System.out.println("3. Back");
+                System.out.println("===============================");
 
-                        System.out.print("Choose One: ");
-                        int setSelect = scan.nextInt();
+                System.out.print("Choose One: ");
+                int setSelect = scanner.nextInt();
 
-                        if (setSelect == 3) {
-                            break;
-                        } else if (setSelect == 1) {
-                            System.out.print("Input Minimum Spent Time: ");
-                            minimumSpentTime = scan.nextInt();
-                            gs.setTimeParameter(gt,minimumSpentTime);
+                if (setSelect == 3) {
+                    break;
+                } else if (setSelect == 1) {
+                    do {
+                        System.out.print("Input Minimum Spent Time: ");
+                        minimumSpentTime = scanner.nextInt();
+                    }while (minimumSpentTime % 10 !=0);
+                    allGroups.setTimeParameter(gt,minimumSpentTime);
 
-                        } else if (setSelect == 2) {
-                            System.out.print("Input Minimum Total Pay");
-                            minimumTotalPay = scan.nextInt();
-                            gs.setPayParameter(gt,minimumTotalPay);
-                        }
-                    }
-                }
-            } else if (parameterSelect == 2) {
-                while (true) {
-                    System.out.println("** Press 'end', if you want to exit! **");
-                    System.out.println("Which group (GENERAL, VIP, VVIP)?");
-
-                    String groupSelect = scan.next();
-                    if (groupSelect.equals("end")) {
-                        break;
-                    }
-
-                    if ( groupSelect.equals("GENERAL")){
-                        gt=GroupType.GENERAL;
-                    } else if(groupSelect.equals("VIP")){
-                        gt=GroupType.VIP;
-                    } else if(groupSelect.equals("VVIP")){
-                        gt=GroupType.VVIP;
-                    } else{
-                        continue;
-                    }
-
-                    System.out.println("GroupType: " + groupSelect);
-                    System.out.println(gs.getGroupParameter(gt));
-
-
-                    gs.showAllParameter();
+                } else if (setSelect == 2) {
+                    do {
+                        System.out.print("Input Minimum Total Pay");
+                        minimumTotalPay = scanner.nextInt();
+                    }while(minimumTotalPay % 100000 !=0);
+                    allGroups.setPayParameter(gt,minimumTotalPay);
                 }
             }
         }
+
+    }
+    public void viewParam() {
+        allGroups.showAllParameter();
+    }
+    public void updateParam() {
+
+
     }
 
+    @Override
+    public void manage() {
+        setInstance(groupMenu);
+        setMethods(methods);
+        super.manage();
+    }
+
+    @Override
+    public int dispMenu() {
+        setMenus(menus);
+        return super.dispMenu();
+    }
 }

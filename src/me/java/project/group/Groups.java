@@ -5,10 +5,9 @@ import me.java.project.customer.Customer;
 import static me.java.project.group.GroupType.groupTypes;
 
 public class Groups {
-    private static final int DEFAULT = 4;
+    private static final int DEFAULT = groupTypes.length;
     Group[] groups;
     int size=0;
-
     private static Groups allGroups;
 
     public static Groups getInstance(){
