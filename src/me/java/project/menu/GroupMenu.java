@@ -38,6 +38,7 @@ public class GroupMenu extends Menu {
                 break;
             }
 
+            groupSelect = groupSelect.toUpperCase();
             int minimumSpentTime;
             int minimumTotalPay;
 

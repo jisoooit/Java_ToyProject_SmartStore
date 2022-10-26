@@ -42,10 +42,13 @@ public class SummaryMenu extends Menu{
             System.out.println("**Press 'end', if you want to exit! **");
             System.out.print("Which order (ASCENDING, DESCENDING)? ");
             String orderSelect = scanner.next();
+
             OrderType ot;
             if (orderSelect.equals("end")) {
                 break;
-            } else if (orderSelect.equals("ASCENDING")) {
+            }
+            orderSelect = orderSelect.toUpperCase();
+            if (orderSelect.equals("ASCENDING")) {
                 ot = OrderType.ASCENDING;
                 classfiedCustomersGroup.sortedByOrder(ot, st);
                 break;
