@@ -6,20 +6,17 @@ import me.java.project.group.Parameter;
 import me.java.project.menu.OrderType;
 import me.java.project.menu.SummaryType;
 
-import java.util.Arrays;
-
 public class CustomerTest {
     public static void main(String[] args) {
         Customers cs = new Customers(10);
 
 
+        Customer c = new Customer("jisuuu", "qwert", 5, 10000);
+        Customer c2 = new Customer("seunghyeon", "asdfg", 20, 20000);
+        Customer c3 = new Customer("backjun", "zxcvb", 30, 30000);
+        Customer c4 = new Customer("programus", "zxcvb", 25, 30000);
 
-        Customer c = new Customer("jisuuu","qwert",5,10000);
-        Customer c2 = new Customer("seunghyeon","asdfg",20,20000);
-        Customer c3 = new Customer("backjun","zxcvb",30,30000);
-        Customer c4 = new Customer("programus","zxcvb",25,30000);
-
-        Customer c5 = new Customer("auhuhu","zxcvb",20,25000);
+        Customer c5 = new Customer("auhuhu", "zxcvb", 20, 25000);
 
 
         cs.customerAdd(c);
@@ -37,13 +34,14 @@ public class CustomerTest {
 //        for(Customers css : cf.classifiedArr){
 //            System.out.println(css);
 //        }
+        
 
         Groups gs = new Groups();
         int time = 10;
         int pay = 10000;
         gs.setParameter(GroupType.GENERAL, new Parameter(time, pay));
 //        gs.setParameter(GroupType.VIP, new Parameter(time+10, pay+10000));
-        gs.setParameter(GroupType.VVIP, new Parameter(time+20, pay+20000));
+        gs.setParameter(GroupType.VVIP, new Parameter(time + 20, pay + 20000));
 
 
         System.out.println("여기");

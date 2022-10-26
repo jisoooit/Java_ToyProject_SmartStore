@@ -7,13 +7,13 @@ public class Customer implements Comparable<Customer> {
     protected String serialNum;
     protected String userName;
     protected String userId;
-    protected  int spentTime;
+    protected int spentTime;
     protected int totalPay;
-    private static  int total=0;
+    private static int total = 0;
 
-    public Customer(){
+    public Customer() {
         total++;
-        this.serialNum=String.format("%05d",total);
+        this.serialNum = String.format("%05d", total);
 
     }
 
@@ -23,8 +23,7 @@ public class Customer implements Comparable<Customer> {
         this.spentTime = spentTime;
         this.totalPay = totalPay;
         total++;
-//        this.serialNum = total;
-        this.serialNum=String.format("%05d",total);
+        this.serialNum = String.format("%05d", total);
 
     }
 
@@ -98,15 +97,15 @@ public class Customer implements Comparable<Customer> {
 class ComparatorByNameA implements Comparator<Customer> {
 
     @Override
-    public int compare(Customer o1, Customer  o2) {
-        return o1.getUserName().compareTo(o2.getUserName()) ;
+    public int compare(Customer o1, Customer o2) {
+        return o1.getUserName().compareTo(o2.getUserName());
     }
 }
 
 class ComparatorByNameD implements Comparator<Customer> {
 
     @Override
-    public int compare(Customer o1, Customer  o2) {
+    public int compare(Customer o1, Customer o2) {
         return o1.getUserName().compareTo(o2.getUserName()) * -1;
     }
 }
@@ -114,32 +113,32 @@ class ComparatorByNameD implements Comparator<Customer> {
 class ComparatorByTimeA implements Comparator<Customer> {
 
     @Override
-    public int compare(Customer o1, Customer  o2) {
-        return o1.getSpentTime()-(o2.getSpentTime()) ;
+    public int compare(Customer o1, Customer o2) {
+        return o1.getSpentTime() - (o2.getSpentTime());
     }
 }
 
 class ComparatorByTimeD implements Comparator<Customer> {
 
     @Override
-    public int compare(Customer o1, Customer  o2) {
-        return o2.getSpentTime()-(o1.getSpentTime()) ;
+    public int compare(Customer o1, Customer o2) {
+        return o2.getSpentTime() - (o1.getSpentTime());
     }
 }
 
 class ComparatorByPayA implements Comparator<Customer> {
 
     @Override
-    public int compare(Customer o1, Customer  o2) {
-        return o1.getTotalPay()-(o2.getTotalPay()) ;
+    public int compare(Customer o1, Customer o2) {
+        return o1.getTotalPay() - (o2.getTotalPay());
     }
 }
 
 class ComparatorByPayD implements Comparator<Customer> {
 
     @Override
-    public int compare(Customer o1, Customer  o2) {
-        return o2.getTotalPay()-(o1.getTotalPay()) ;
+    public int compare(Customer o1, Customer o2) {
+        return o2.getTotalPay() - (o1.getTotalPay());
     }
 }
 

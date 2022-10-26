@@ -1,7 +1,5 @@
 package me.java.project.group;
 
-import me.java.project.customer.Customer;
-
 import static me.java.project.group.GroupType.groupTypes;
 
 public class Groups {
@@ -39,9 +37,9 @@ public class Groups {
         groups[gt.ordinal()].setTimeParameter(minimumTime);
     }
 
-    public void setPayParameter(GroupType gt, int minimumPay){
-        if (groups[gt.ordinal()] ==null) {
-            groups[gt.ordinal()]=new Group(gt, new Parameter(0,0));
+    public void setPayParameter(GroupType gt, int minimumPay) {
+        if (groups[gt.ordinal()] == null) {
+            groups[gt.ordinal()] = new Group(gt, new Parameter(0, 0));
         }
         groups[gt.ordinal()].setPayParameter(minimumPay);
 
