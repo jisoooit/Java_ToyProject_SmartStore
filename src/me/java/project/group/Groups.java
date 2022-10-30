@@ -24,11 +24,6 @@ public class Groups {
         groups[size]=group;
         size++;
     }
-//    public Groups(){
-//        for(int i =0; i < 4; i++) {
-//            groups[i] = new Group(groupTypes[i], new Parameter(0,0));
-//        }
-//    }
 
     public void setTimeParameter(GroupType gt, int minimumTime){
         if (groups[gt.ordinal()] ==null){
