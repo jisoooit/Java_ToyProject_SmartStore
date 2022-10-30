@@ -17,6 +17,12 @@ public class Customer implements Comparable<Customer> {
     }
 
     public Customer(String userName, String userId, int spentTime, int totalPay) {
+        if (userName == null) {
+            System.out.println("이름을 입력하지 않아 customer를 추가할 수 없습니다.");
+        }
+        if (userId == null) {
+            System.out.println("아이디를 입력하지 않아 customer를 추가할 수 없습니다. ");
+        }
         this.userName = userName;
         this.userId = userId;
         this.spentTime = spentTime;

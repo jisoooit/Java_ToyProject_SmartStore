@@ -124,12 +124,15 @@ public class CustomerMenu extends Menu{
 
            try{
                int end = allCustomers.getSize();
-               System.out.println("Which Customer ("+1+"~"+end+")? ");
+               System.out.println("Which Customer (" + 1 + "~" + end + ")? ");
+               if (end <= 0) {
+                   System.out.println("업데이트 할 손님이 없습니다.");
+                   return;
+               }
 
 
-
-               updateNo =  Integer.parseInt(scanner.next());
-               if (updateNo <1 || updateNo > end) {
+               updateNo = Integer.parseInt(scanner.next());
+               if (updateNo < 1 || updateNo > end) {
                    throw new InputRangeException();
                } else {
                    break;
@@ -201,9 +204,15 @@ public class CustomerMenu extends Menu{
         while(true){
             try {
                 int end = allCustomers.getSize();
-                System.out.print("Which Customer ("+1+"~"+end+")? ");
-                int deleteNo =  Integer.parseInt(scanner.next());
-                if (deleteNo <1 || deleteNo > end) {
+                System.out.println("Which Customer (" + 1 + "~" + end + ")? ");
+
+                if (end <= 0) {
+                    System.out.println("업데이트 할 손님이 없습니다.");
+                    return;
+                }
+
+                int deleteNo = Integer.parseInt(scanner.next());
+                if (deleteNo < 1 || deleteNo > end) {
                     throw new InputRangeException();
                 }
                 allCustomers.customerDelete(deleteNo);
