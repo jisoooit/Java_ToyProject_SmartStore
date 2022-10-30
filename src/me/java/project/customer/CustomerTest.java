@@ -33,6 +33,9 @@ public class CustomerTest {
 //        gs.setParameter(GroupType.VIP, new Parameter(time+10, pay+10000));
         gs.setParameter(GroupType.VVIP, new Parameter(time + 20, pay + 20000));
 
+        System.out.println("find 변경 테스트");
+        System.out.println(cs.find("0002"));
+//        cs.find("00002");
 
         System.out.println("여기");
         //ClassifiedCustomers[] classifiedCustomers = cs.groupByClass(gs);

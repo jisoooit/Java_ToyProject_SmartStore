@@ -1,6 +1,7 @@
 package me.java.project.customer;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Customers {
     public static final int DEFAULT_CUSTOMER_SIZE = 10;
@@ -35,14 +36,13 @@ public class Customers {
     }
 
     public Customer find(String no) {
-        for (int i = 0; i < customers.length; i++) {
-            if (customers[i] != null) {
-                if (customers[i].getSerialNum().equals(no)) {
-                    return customers[i];
-                }
-            }
-        }
-        return new Customer();
+
+        return Arrays.stream(customers)
+                .filter(Objects::nonNull)
+                .filter(c -> c.getSerialNum().equals(no))
+                .findFirst()
+                .orElse(null);
+
     }
 
     public Customer[] getCleanCustomers() { //변경은 안되고 read만 할때 사용
