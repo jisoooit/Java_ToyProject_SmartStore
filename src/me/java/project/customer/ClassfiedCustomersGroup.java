@@ -1,5 +1,8 @@
 package me.java.project.customer;
 
+import me.java.project.customer.comparator.ComparatorByName;
+import me.java.project.customer.comparator.ComparatorByPay;
+import me.java.project.customer.comparator.ComparatorByTime;
 import me.java.project.group.GroupType;
 import me.java.project.group.Groups;
 import me.java.project.menu.OrderType;
@@ -14,35 +17,39 @@ public class ClassfiedCustomersGroup {
 
         private static ClassfiedCustomersGroup classfiedCustomersGroup;
 
-        public static ClassfiedCustomersGroup getInstance(){
+        public static ClassfiedCustomersGroup getInstance() {
                 if (classfiedCustomersGroup == null) {
                         classfiedCustomersGroup = new ClassfiedCustomersGroup();
                 }
-                return  classfiedCustomersGroup;
+                return classfiedCustomersGroup;
         }
 
+        ComparatorByName comparatorByName = new ComparatorByName();
+        ComparatorByTime comparatorByTime = new ComparatorByTime();
+        ComparatorByPay comparatorByPay = new ComparatorByPay();
 
-        public ClassfiedCustomersGroup(){
-                for(int i = 0; i < GroupType.values().length; i++){
+
+        public ClassfiedCustomersGroup() {
+                for (int i = 0; i < GroupType.values().length; i++) {
                         classifiedCustomers[i] = new ClassifiedCustomers(groupTypes[i]);
                 }
         }
 
-        public void groupByClass(Groups groups, Customers cs){
+        public void groupByClass(Groups groups, Customers cs) {
 
                 for (int i = 0; i < groupTypes.length; i++) {
                         classifiedCustomers[i] = new ClassifiedCustomers(groupTypes[i]);
                 }
 
-                for(int i = 0; i<cs.customers.length; i++) {
-                        int flag =0;
-                        for(int j = groupTypes.length-2 ; j >= 0; j--) {
-                                if (groups.getGroupParameter(groupTypes[j])!=null){ //Groups 초기화를 groups = new Group[DEFAULT]; set 해주지 않은 group은 null이다.
+                for (int i = 0; i < cs.customers.length; i++) {
+                        int flag = 0;
+                        for (int j = groupTypes.length - 2; j >= 0; j--) {
+                                if (groups.getGroupParameter(groupTypes[j]) != null) { //Groups 초기화를 groups = new Group[DEFAULT]; set 해주지 않은 group은 null이다.
                                         int groupTime = groups.getGroupParameter(groupTypes[j]).getParameter().getMinimumTime();
                                         int groupPay = groups.getGroupParameter(groupTypes[j]).getParameter().getMinimumPay();
-                                        if (cs.customers[i]!=null){
-                                                if (cs.customers[i].getSpentTime() >= groupTime && cs.customers[i].getTotalPay() >= groupPay ) {
-                                                        flag=1;
+                                        if (cs.customers[i] != null) {
+                                                if (cs.customers[i].getSpentTime() >= groupTime && cs.customers[i].getTotalPay() >= groupPay) {
+                                                        flag = 1;
                                                         classifiedCustomers[groupTypes[j].ordinal()].customerAdd(cs.customers[i]);
                                                         break;
                                                 }
@@ -67,21 +74,27 @@ public class ClassfiedCustomersGroup {
 
                                 Customer[] sortedArr = Arrays.copyOf(classifiedCustomers[i].getCustomers(), classifiedCustomers[i].getSize());
 
-                                if ( orderType.equals(OrderType.ASCENDING)){
-                                        if(summaryType.equals(SummaryType.NAME)){
-                                                Arrays.sort(sortedArr, new ComparatorByNameA());
-                                        } else if(summaryType.equals(SummaryType.TIME)){
-                                                Arrays.sort(sortedArr, new ComparatorByTimeA());
-                                        } else if(summaryType.equals(SummaryType.PAY)){
-                                                Arrays.sort(sortedArr, new ComparatorByPayA());
+                                if (orderType.equals(OrderType.ASCENDING)) {
+                                        if (summaryType.equals(SummaryType.NAME)) {
+                                                comparatorByName.setOption(OrderType.ASCENDING);
+                                                Arrays.sort(sortedArr, comparatorByName);
+                                        } else if (summaryType.equals(SummaryType.TIME)) {
+                                                comparatorByTime.setOption(OrderType.ASCENDING);
+                                                Arrays.sort(sortedArr, comparatorByTime);
+                                        } else if (summaryType.equals(SummaryType.PAY)) {
+                                                comparatorByPay.setOption(OrderType.ASCENDING);
+                                                Arrays.sort(sortedArr, comparatorByPay);
                                         }
-                                } else if(orderType.equals(OrderType.DESCENDING)){
-                                        if(summaryType.equals(SummaryType.NAME)){
-                                                Arrays.sort(sortedArr, new ComparatorByNameD());
-                                        } else if(summaryType.equals(SummaryType.TIME)){
-                                                Arrays.sort(sortedArr, new ComparatorByTimeD());
-                                        } else if(summaryType.equals(SummaryType.PAY)){
-                                                Arrays.sort(sortedArr, new ComparatorByPayD());
+                                } else if (orderType.equals(OrderType.DESCENDING)) {
+                                        if (summaryType.equals(SummaryType.NAME)) {
+                                                comparatorByName.setOption(OrderType.DESCENDING);
+                                                Arrays.sort(sortedArr, comparatorByName);
+                                        } else if (summaryType.equals(SummaryType.TIME)) {
+                                                comparatorByTime.setOption(OrderType.DESCENDING);
+                                                Arrays.sort(sortedArr, comparatorByTime);
+                                        } else if (summaryType.equals(SummaryType.PAY)) {
+                                                comparatorByPay.setOption(OrderType.DESCENDING);
+                                                Arrays.sort(sortedArr, comparatorByPay);
                                         }
                                 }
 

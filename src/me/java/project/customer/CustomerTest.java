@@ -25,16 +25,6 @@ public class CustomerTest {
         cs.customerAdd(c4);
         cs.customerAdd(c5);
 
-//        System.out.println("showC");
-//        cs.showCustomers();
-//
-//        ClassifiedCustomers2 cf = new ClassifiedCustomers2();
-//        cf.groupByClass(cs);
-//
-//        for(Customers css : cf.classifiedArr){
-//            System.out.println(css);
-//        }
-        
 
         Groups gs = new Groups();
         int time = 10;

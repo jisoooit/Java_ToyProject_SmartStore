@@ -1,6 +1,5 @@
 package me.java.project.customer;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 public class Customer implements Comparable<Customer> {
@@ -91,54 +90,6 @@ public class Customer implements Comparable<Customer> {
     @Override
     public int compareTo(Customer o) {
         return this.userName.compareTo(o.getUserName());
-    }
-}
-
-class ComparatorByNameA implements Comparator<Customer> {
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o1.getUserName().compareTo(o2.getUserName());
-    }
-}
-
-class ComparatorByNameD implements Comparator<Customer> {
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o1.getUserName().compareTo(o2.getUserName()) * -1;
-    }
-}
-
-class ComparatorByTimeA implements Comparator<Customer> {
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o1.getSpentTime() - (o2.getSpentTime());
-    }
-}
-
-class ComparatorByTimeD implements Comparator<Customer> {
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o2.getSpentTime() - (o1.getSpentTime());
-    }
-}
-
-class ComparatorByPayA implements Comparator<Customer> {
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o1.getTotalPay() - (o2.getTotalPay());
-    }
-}
-
-class ComparatorByPayD implements Comparator<Customer> {
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o2.getTotalPay() - (o1.getTotalPay());
     }
 }
 
