@@ -1,10 +1,17 @@
 package me.java.project.group;
 
+import me.java.project.customer.Customers;
+
 public class Group {
     private GroupType groupType;
     private Parameter parameter;
 
-    public Group() {}
+    // 추가하는 코드
+    private Customers customers;
+
+
+    public Group() {
+    }
 
     public Group(GroupType groupType, Parameter parameter) {
         this.groupType = groupType;
@@ -28,11 +35,11 @@ public class Group {
     }
 
     //내가 추가한 것
-    public void setTimeParameter(int minimumTime){
+    public void setTimeParameter(int minimumTime) {
         this.parameter.setMinimumTime(minimumTime);
     }
 
-    public void setPayParameter(int minimumPay){
+    public void setPayParameter(int minimumPay) {
         this.parameter.setMinimumPay(minimumPay);
     }
 

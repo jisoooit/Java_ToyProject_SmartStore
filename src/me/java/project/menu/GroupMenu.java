@@ -6,19 +6,19 @@ import me.java.project.group.GroupType;
 import me.java.project.group.Groups;
 
 
-
 public class GroupMenu extends Menu {
     private static GroupMenu groupMenu;
     private GroupType gt;
     private Groups allGroups = Groups.getInstance();
 
     private String[] menus
-            = { "Set Parameter", "View Parameter", "Update Parameter",  "Back"};
+            = {"Set Parameter", "View Parameter", "Update Parameter", "Back"};
 
     /* method reflect */
-    private String[] methods = { "setParam", "viewParam", "setParam" };
+    private String[] methods = {"setParam", "viewParam", "setParam"};
 
-    private GroupMenu() {}
+    private GroupMenu() {
+    }
 
     public static GroupMenu getInstance() {
         if (groupMenu == null) {
@@ -74,14 +74,14 @@ public class GroupMenu extends Menu {
                     } else if (setSelect == 1) {
                         do {
                             System.out.print("Input Minimum Spent Time: ");
-                            minimumSpentTime =  Integer.parseInt(scanner.next());
+                            minimumSpentTime = Integer.parseInt(scanner.next());
                         } while (minimumSpentTime % 10 != 0);
                         allGroups.setTimeParameter(gt, minimumSpentTime);
 
                     } else if (setSelect == 2) {
                         do {
                             System.out.print("Input Minimum Total Pay");
-                            minimumTotalPay =  Integer.parseInt(scanner.next());
+                            minimumTotalPay = Integer.parseInt(scanner.next());
                         } while (minimumTotalPay % 100000 != 0);
                         allGroups.setPayParameter(gt, minimumTotalPay);
                     }
@@ -94,9 +94,11 @@ public class GroupMenu extends Menu {
             }
         }
     }
+
     public void viewParam() {
         allGroups.showAllParameter();
     }
+
     public void updateParam() {
 
     }

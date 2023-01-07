@@ -4,7 +4,7 @@ import me.java.project.customer.ClassfiedCustomersGroup;
 import me.java.project.customer.Customers;
 import me.java.project.group.Groups;
 
-public class SummaryMenu extends Menu{
+public class SummaryMenu extends Menu {
     private static SummaryMenu summaryMenu;
     private ClassfiedCustomersGroup classfiedCustomersGroup = ClassfiedCustomersGroup.getInstance();
     private Customers allCustomers = Customers.getInstance();
@@ -12,14 +12,14 @@ public class SummaryMenu extends Menu{
 
 
     private String[] menus
-            = { "Summary",
+            = {"Summary",
             "Summary (Sorted By Name)",
             "Summary (Sorted By Spent Time)",
             "Summary (Sorted By Total Payment)",
             "Back"};
 
     /* method reflect */
-    private String[] methods = { "summary", "sortedByName", "sortedBySpentTime", "sortedByTotalPayment" };
+    private String[] methods = {"summary", "sortedByName", "sortedBySpentTime", "sortedByTotalPayment"};
 
     private SummaryMenu() {
     }
@@ -32,7 +32,7 @@ public class SummaryMenu extends Menu{
     }
 
     public void summary() {
-        classfiedCustomersGroup.groupByClass(allGroups,allCustomers);
+        classfiedCustomersGroup.groupByClass(allGroups, allCustomers);
         classfiedCustomersGroup.showSummaryCustomers();
     }
 
@@ -63,11 +63,11 @@ public class SummaryMenu extends Menu{
     }
 
     public void sortedByName() {
-       sortedBySomething(SummaryType.NAME);
+        sortedBySomething(SummaryType.NAME);
     }
 
     public void sortedBySpentTime() {
-       sortedBySomething(SummaryType.TIME);
+        sortedBySomething(SummaryType.TIME);
     }
 
     public void sortedByTotalPayment() {

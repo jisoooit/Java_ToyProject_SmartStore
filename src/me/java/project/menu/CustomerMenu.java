@@ -8,10 +8,10 @@ import me.java.project.exception.InputRangeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CustomerMenu extends Menu{
+public class CustomerMenu extends Menu {
     private static CustomerMenu customerMenu;
-    private String[] menus = {"Set Customer Data", "View Customer Data"," Update Customer Data", "Delete Customer Data","Back"};
-    private String [] methods = {"setCusData", "viewCusData","updateCusData","deleteCusData"};
+    private String[] menus = {"Set Customer Data", "View Customer Data", " Update Customer Data", "Delete Customer Data", "Back"};
+    private String[] methods = {"setCusData", "viewCusData", "updateCusData", "deleteCusData"};
 
     private Customers allCustomers = Customers.getInstance();
     Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}$");
@@ -19,10 +19,13 @@ public class CustomerMenu extends Menu{
 
     Matcher matcher;
 
-    private CustomerMenu() {};
+    private CustomerMenu() {
+    }
 
-    public static CustomerMenu getInstance(){
-        if ( customerMenu == null ){
+    ;
+
+    public static CustomerMenu getInstance() {
+        if (customerMenu == null) {
             customerMenu = new CustomerMenu();
         }
         return customerMenu;
@@ -32,7 +35,7 @@ public class CustomerMenu extends Menu{
     public void setCusData() {
 
         while (true) {
-            try  {
+            try {
                 System.out.println("** Press -1, if you want to exit! **");
                 System.out.print("How many customers to input? ");
 
@@ -89,62 +92,62 @@ public class CustomerMenu extends Menu{
 
                             } else if (InfoSelect == 3) {
                                 System.out.print("Input Customer's Spent Time at Your Store: ");
-                                spentTime =Integer.parseInt(scanner.next());
+                                spentTime = Integer.parseInt(scanner.next());
                             } else if (InfoSelect == 4) {
                                 System.out.print("Input Customer's Total Payment at Your Store");
                                 totalPay = Integer.parseInt(scanner.next());
                             }
-                    }
-                        catch (NumberFormatException e ){
+                        } catch (NumberFormatException e) {
                             System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
-                        }  catch (InputRangeException e){
+                        } catch (InputRangeException e) {
                             System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
                         }
+                    }
                 }
-                }
-            }catch (NumberFormatException e ){
+            } catch (NumberFormatException e) {
                 System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
             }
         }
     }
+
     public void viewCusData() {
         System.out.println("=====Customer Info=====");
 
         allCustomers.showCustomers();
     }
+
     public void updateCusData() {
-        String updateUserName=null;
-        String updateUserId=null;
-        int updateSpentTime=0;
-        int updateTotalPay=0;
+        String updateUserName = null;
+        String updateUserId = null;
+        int updateSpentTime = 0;
+        int updateTotalPay = 0;
         int updateNo;
         allCustomers.showCustomers();
 
-       while (true){
+        while (true) {
 
-           try{
-               int end = allCustomers.getSize();
-               System.out.println("Which Customer (" + 1 + "~" + end + ")? ");
-               if (end <= 0) {
-                   System.out.println("업데이트 할 손님이 없습니다.");
-                   return;
-               }
+            try {
+                int end = allCustomers.getSize();
+                System.out.println("Which Customer (" + 1 + "~" + end + ")? ");
+                if (end <= 0) {
+                    System.out.println("업데이트 할 손님이 없습니다.");
+                    return;
+                }
 
 
-               updateNo = Integer.parseInt(scanner.next());
-               if (updateNo < 1 || updateNo > end) {
-                   throw new InputRangeException();
-               } else {
-                   break;
-               }
+                updateNo = Integer.parseInt(scanner.next());
+                if (updateNo < 1 || updateNo > end) {
+                    throw new InputRangeException();
+                } else {
+                    break;
+                }
 
-           } catch (NumberFormatException e){
-               System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
-           }
-           catch (InputRangeException e){
-               System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
-           }
-       }
+            } catch (NumberFormatException e) {
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+            } catch (InputRangeException e) {
+                System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
 
         while (true) {
             try {
@@ -158,7 +161,7 @@ public class CustomerMenu extends Menu{
 
 
                 System.out.print("Choose One: ");
-                int InfoSelect =  Integer.parseInt(scanner.next());
+                int InfoSelect = Integer.parseInt(scanner.next());
                 if (InfoSelect < 1 || InfoSelect > 5) {
                     throw new InputRangeException();
                 }
@@ -189,10 +192,9 @@ public class CustomerMenu extends Menu{
                     updateTotalPay = Integer.parseInt(scanner.next());
 
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
-            }
-            catch (InputRangeException e){
+            } catch (InputRangeException e) {
                 System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
@@ -201,7 +203,7 @@ public class CustomerMenu extends Menu{
 
     public void deleteCusData() {
         allCustomers.showCustomers();
-        while(true){
+        while (true) {
             try {
                 int end = allCustomers.getSize();
                 System.out.println("Which Customer (" + 1 + "~" + end + ")? ");
@@ -217,9 +219,9 @@ public class CustomerMenu extends Menu{
                 }
                 allCustomers.customerDelete(deleteNo);
                 break;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
-            } catch (InputRangeException e){
+            } catch (InputRangeException e) {
                 System.out.println(ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
